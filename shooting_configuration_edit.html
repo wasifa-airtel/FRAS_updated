@@ -1,0 +1,13 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Edit{% endblock %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<h3 class="form-heading"> <a href="{{ url_for('session_config') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
+<body>
+<div class="page-header">
+{{ wtf.quick_form(form) }}
+
+</div>
+</body>
+
+{% endblock %}

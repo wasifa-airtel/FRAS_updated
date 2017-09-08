@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+
+
+<meta name="robots" content="noindex">
+<html>
+<head>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://rawgithub.com/highcharts/draggable-points/master/draggable-points.js"></script>
+<link rel="stylesheet" type="text/css" herf="static/jquery.jqplot.min.css" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<meta charset=utf-8 />
+<title>Bullet Identification</title>
+<![endif]-->
+<style type=text/css> 
+#button {
+  width: 7em;
+  background-color: #87CEFA;
+  font-size: 110%;
+  /* etc., etc., and so forth */
+}
+
+#refresh {
+  width: 7em;
+  background-color: #87CEFA;
+  font-size: 110%;
+  /* etc., etc., and so forth */
+}
+
+#button2 {
+  width: 7em;
+  background-color: #87CEFA;
+  font-size: 110%;
+  /* etc., etc., and so forth */
+}
+
+#refresh2 {
+  width: 7em;
+  background-color: #87CEFA;
+  font-size: 110%;
+  /* etc., etc., and so forth */
+}
+
+#button3 {
+  width: 7em;
+  background-color: #87CEFA;
+  font-size: 110%;
+  /* etc., etc., and so forth */
+}
+
+#refresh3 {
+  width: 7em;
+  background-color: #87CEFA;
+  font-size: 110%;
+  /* etc., etc., and so forth */
+}
+
+#button4 {
+  width: 7em;
+  background-color: #87CEFA;
+  font-size: 110%;
+  /* etc., etc., and so forth */
+}
+
+#refresh4 {
+  width: 7em;
+  background-color: #87CEFA;
+  font-size: 110%;
+  /* etc., etc., and so forth */
+}
+</style>            
+
+
+
+</head>
+
+
+<body style="margin:50; padding:50">
+ 
+   
+
+</br>
+
+<a href="{{ url_for('fras') }}">Back</a>
+</br>
+</br>
+<div id="log">
+
+<table>
+
+ <tr>
+    <th>Lane 1 : {{ lane_1_name }} </th>
+    <th>Lane 2 : {{ lane_2_name }} </th>
+    <th>Lane 3 : {{ lane_3_name }}</th>
+    <th>Lane 4 : {{ lane_4_name }}</th>
+  </tr>
+
+
+  
+  <tr>
+    <td><img src="{{url_for('static', filename= 'img_dump/1.png')}} " width="200" height="200"></td>
+    <td><img src="{{url_for('static', filename= 'img_dump/2.png')}} " width="200" height="200"></td>
+    <td><img src="{{url_for('static', filename= 'img_dump/3.png')}} " width="200" height="200"></td>
+    <td><img src="{{url_for('static', filename= 'img_dump/4.png')}} " width="200" height="200"></td>
+  </tr>
+  
+ </table>
+ 
+
+ </div>
+    </br>
+  <div>
+        <div id="myplot" style="width:600px;height:600px;" >
+        <!-- Plotly chart will be drawn inside this DIV -->
+        </div>
+          <div id="  " style="" >
+            <label for=""><b>Predicted :</b></label>
+            </br>
+            <b>MPI: </b><span id=" "><b> X :</b>  {{xmpi1}} ,  <b>Y: </b> {{ympi1}}</span>
+            </br>
+            <b>Grouping Lenght: </b><span id=" "> {{gp_1}} <b> INCHS </b></span>
+            </br>
+            <b>Firing Tendency: </b><span id=" ">{{ f1 }} <b>DEGREE </b></span>
+            </br>
+        </div>
+       </br>
+       </br>
+        <div id="detail1" style="" >
+            <label for=""><b>Adjusted : </b></label>
+            </br>
+            <b>MPI: </b><span id="result">?</span>
+            </br>
+            <b> Grouping Lenght : </b><span id="result1">?</span>
+            </br>
+            <b>Firing Tendency : </b><span id="result2">? </span>
+            </br>
+        </div>
+        
+    </div>
+    </br>
+    <button id="button">Remove </button>
+    <button id="refresh">Update</button>
+    </br>
+    <div>
+    <div id="myplot1" style="width:600px;height:600px; align:right" >
+    <!-- Plotly chart will be drawn inside this DIV --></div>
+      <div id="  " style="" >
+            <label for=""><b>Predicted :</b></label>
+            </br>
+            <b>MPI: </b><span id=" "><b> X :</b>  {{xmpi2}} ,  <b>Y: </b> {{ympi2}}</span>
+            </br>
+            <b>Grouping Lenght: </b><span id=" "> {{gp_2}} <b> INCHS </b></span>
+            </br>
+            <b>Firing Tendency: </b><span id=" ">{{ f2 }} <b>DEGREE </b></span>
+            </br>
+        </div>
+       </br>
+       </br>
+        <div id="detail1" style="" >
+            <label for=""><b>Adjusted : </b></label>
+            </br>
+            <b>MPI: </b><span id="result3">?</span>
+            </br>
+            <b> Grouping Lenght: </b><span id="result4">?</span>
+            </br>
+            <b>Firing Tendency: </b><span id="result5">?</span>
+            </br>
+        </div>
+    </div>
+    </br>
+    <button id="button2">Remove </button>
+    <button id="refresh2">Update</button>
+    </br>
+    <div>
+    <div id="myplot2" style="width:600px;height:600px;">
+    <!-- Plotly chart will be drawn inside this DIV --></div>
+     <div id="  " style="" >
+            <label for=""><b>Predicted :</b></label>
+            </br>
+            <b>MPI: </b><span id=" "><b> X :</b>  {{xmpi3}} ,  <b>Y: </b> {{ympi3}}</span>
+            </br>
+            <b>Grouping Lenght: </b><span id=" "> {{gp_3}} <b> INCHS </b></span>
+            </br>
+            <b>Firing Tendency: </b><span id=" ">{{ f3 }} <b>DEGREE </b></span>
+            </br>
+        </div>
+       </br>
+       </br>
+        <div id="detail1" style="" >
+            <label for=""><b>AAdjusted : </b></label>
+            </br>
+            <b>MPI: </b><span id="result6">?</span>
+            </br>
+            <b> Grouping Lenght: </b><span id="result7">?</span>
+            </br>
+            <b>Firing Tendency: </b><span id="result8">?</span>
+            </br>
+        </div>
+    </div>
+    </br>
+    <button id="button3">Remove </button>
+    <button id="refresh3">Update</button>
+    </br>
+    <div>
+    <div id="myplot3" style="width:600px;height:600px;">
+    <!-- Plotly chart will be drawn inside this DIV --></div>
+    
+     <div id="  " style="" >
+            <label for=""><b>Predicted :</b></label>
+            </br>
+            <b>MPI: </b><span id=" "><b> X :</b>  {{xmpi4}} ,  <b>Y: </b> {{ympi4}}</span>
+            </br>
+            <b>Grouping Lenght: </b><span id=" "> {{gp_4}} <b> INCHS </b></span>
+            </br>
+            <b>Firing Tendency: </b><span id=" ">{{ f4 }} <b>DEGREE </b></span>
+            </br>
+        </div>
+       </br>
+       </br>
+        <div id="detail1" style="" >
+            <label for=""><b>Adjusted : </b></label>
+            </br>
+            <b>MPI: </b><span id="result9">?</span>
+            </br>
+            <b> Grouping Lenght: </b><span id="result10">?</span>
+            </br>
+            <b>Firing Tendency: </b><span id="result11">?</span>
+            </br>
+        </div>
+    
+    </div>
+    </br>
+    <button id="button4">Remove </button>
+    <button id="refresh4">Update</button>
+</br>
+</br>
+<form action="{{ url_for('save_call') }}" method=post>
+<input type="submit" name="submit" value="Save">
+</form>
+
+
+<script>
+
+var currentIndexSelected;
+  xArr  = {{ X }};
+  yArr  = {{ Y }};
+  var data = [];
+   for (i = 0; i < xArr.length; i++) {
+		data.push([xArr[i], yArr[i]]);
+	}
+console.log (data);
+
+var chart = new Highcharts.Chart({
+    chart: {
+        renderTo: 'myplot',
+        events: {
+         load: function() {
+          this.renderer.image("{{url_for('static', filename= 'img_dump/1.png')}} ", 60, 45, 528, 520).add(); 
+           },
+            click: function(e) {
+                    var x = Math.round(e.xAxis[0].value),
+                    y = Math.round(e.yAxis[0].value),
+                    series = this.series[0];
+                    series.addPoint([x, y]);
+    
+                    }
+                    
+                    
+        }
+    },
+     title: {
+        text: 'Target 1'
+    },
+     xAxis: {
+            linewidth:5,
+            max: 2000,
+            min: 0
+
+
+        } ,
+        yAxis: [{
+            linewidth:5,
+            max: 2000,
+            min: 0,
+            title: {
+                text: ' '
+            }
+        } ],
+    legend: {
+        layout: 'vertical',
+        floating: true,
+        backgroundColor: '#FFFFFF',
+        align: 'right',
+        verticalAlign: 'bottom',
+        y: 60,
+        x: -60
+    },
+    tooltip: {
+        formatter: function() {
+            return '<b>'+ this.series.name +'</b><br/>'+
+                this.x +': '+ this.y;
+        }
+    },
+    plotOptions: {
+    },
+    series: [{
+        allowPointSelect: true,
+        //cursor: 'ns-resize',
+        point: {
+                    events: {
+                        select: function() {
+                           var pId = this.series.data.indexOf(this);
+                            currentIndexSelected = pId;
+                           
+                            
+                            $('#out').html(
+                            'Dragging <b>' +  this.series.points[pId].y);//this.series.data[0].x + '</b>, <b>');
+                            
+                        },
+                            
+                        
+                        drag: function(e) {
+                        
+                        // Returning false stops the drag and drops. Example:
+                        /*
+                        if (e.newY > 300) {
+                            this.y = 300;
+                            return false;
+                        }
+                        */
+                        
+                        $('#drag').html(
+                            'Dragging <b>' + this.series.name + '</b>, <b>' +
+                            this.category + '</b> to <b>' + 
+                            Highcharts.numberFormat(e.newY, 2) + '</b>'
+                        );
+                    },
+                    drop: function() {
+                        $('#drop').html(
+                            'In <b>' + this.series.name + '</b>, <b>' +
+                            this.category + '</b> was set to <b>' + 
+                            Highcharts.numberFormat(this.y, 2) + '</b>'
+                        );
+                    }
+                    }
+                },
+        data: data,
+        cursor: 'move',
+        marker: {
+                enabled: true,
+                radius: 5
+            },
+        lineWidth:0,
+        tooltip: {
+                valueDecimals: 2
+            },
+        states: {
+                hover: {
+                    lineWidthPlus: 0
+                }
+            },
+        color:'#FF0000',
+        draggableX: true,
+        draggableY: true,
+        
+    }]
+});
+
+
+// button handler
+$('#button').click(function() {
+     var chart = $('#myplot').highcharts();
+     var series = chart.getSelectedSeries();
+    
+        //categories.splice(currentIndexSelected,1);
+        data.splice(currentIndexSelected,1);
+        
+        chart.series[0].setData(data);
+        //chart.xAxis[0].setCategories(categories);
+   
+});
+   
+   
+$('#refresh').click(function() {
+     var chart = $('#myplot').highcharts();
+     var x1 = [];
+     var y1 = [];
+     var points = [];
+     var new_data = chart.series[0].points;
+    for(var i = 0; i < new_data.length; i++) {
+                x1.push([new_data[i].x]);
+                y1.push([new_data[i].y]);
+                points.push([new_data[i].x,new_data[i].y])
+                
+            }
+$.ajax({
+    url: "/test",
+    type: "POST",
+    data: JSON.stringify({x1: x1 , y1:y1 ,points:points}),
+    contentType: "application/json; charset=utf-8",
+    success: function(dat) { 
+            $("#result").text(dat.mp);
+            $("#result1").text(dat.gp_1 +  " " + "INCHS" );
+            $("#result2").text(dat.f_1 +  " " + "DEGREES" );
+            
+            }
+});
+        
+   
+});
+</script>
+
+<script>
+
+var currentIndexSelected;
+  xArr  = {{ X2 }};
+  yArr  = {{ Y2 }};
+  var data = [];
+  
+   for (i = 0; i < xArr.length; i++) {
+		data.push([xArr[i], yArr[i]]);
+	}
+console.log (data);
+
+var chart = new Highcharts.Chart({
+    chart: {
+        renderTo: 'myplot1',
+        events: {
+         load: function() {
+          this.renderer.image("{{url_for('static', filename= 'img_dump/2.png')}} ", 60, 45, 528, 520).add(); 
+           },
+            click: function(e) {
+                    var x = Math.round(e.xAxis[0].value),
+                    y = Math.round(e.yAxis[0].value),
+                    series = this.series[0];
+                    series.addPoint([x, y]);
+    
+                    }
+                    
+                    
+        }
+    },
+     title: {
+        text: 'Target 2'
+    },
+     xAxis: {
+            linewidth:5,
+            max: 2000,
+            min: 0
+
+
+        } ,
+        yAxis: [{
+            linewidth:5,
+            max: 2000,
+            min: 0,
+            title: {
+                text: ' '
+            }
+        } ],
+    legend: {
+        layout: 'vertical',
+        floating: true,
+        backgroundColor: '#FFFFFF',
+        align: 'right',
+        verticalAlign: 'bottom',
+        y: 60,
+        x: -60
+    },
+    tooltip: {
+        formatter: function() {
+            return '<b>'+ this.series.name +'</b><br/>'+
+                this.x +': '+ this.y;
+        }
+    },
+    plotOptions: {
+    },
+   series: [{
+        allowPointSelect: true,
+        //cursor: 'ns-resize',
+        point: {
+                    events: {
+                        select: function() {
+                           var pId = this.series.data.indexOf(this);
+                            currentIndexSelected = pId;
+                           
+                            
+                            $('#out').html(
+                            'Dragging <b>' +  this.series.points[pId].y);//this.series.data[0].x + '</b>, <b>');
+                            
+                        },
+                            
+                        
+                        drag: function(e) {
+                        
+                        // Returning false stops the drag and drops. Example:
+                        /*
+                        if (e.newY > 300) {
+                            this.y = 300;
+                            return false;
+                        }
+                        */
+                        
+                        $('#drag').html(
+                            'Dragging <b>' + this.series.name + '</b>, <b>' +
+                            this.category + '</b> to <b>' + 
+                            Highcharts.numberFormat(e.newY, 2) + '</b>'
+                        );
+                    },
+                    drop: function() {
+                        $('#drop').html(
+                            'In <b>' + this.series.name + '</b>, <b>' +
+                            this.category + '</b> was set to <b>' + 
+                            Highcharts.numberFormat(this.y, 2) + '</b>'
+                        );
+                    }
+                    }
+                },
+        data: data,
+        cursor: 'move',
+        marker: {
+                enabled: true,
+                radius: 5
+            },
+        lineWidth:0,
+        tooltip: {
+                valueDecimals: 2
+            },
+        states: {
+                hover: {
+                    lineWidthPlus: 0
+                }
+            },
+        color:'#FF0000',
+        draggableX: true,
+        draggableY: true,
+        
+    }]
+});
+
+
+// button handler
+$('#button2').click(function() {
+     var chart = $('#myplot1').highcharts();
+     var series = chart.getSelectedSeries();
+    
+        //categories.splice(currentIndexSelected,1);
+        data.splice(currentIndexSelected,1);
+        
+        chart.series[0].setData(data);
+        //chart.xAxis[0].setCategories(categories);
+   
+});
+   
+$('#refresh2').click(function() {
+     var chart = $('#myplot1').highcharts();
+     var x2 = [];
+     var y2 = [];
+     var points2 = [];
+     var new_data = chart.series[0].points;
+     for(var i = 0; i < new_data.length; i++) {
+                x2.push([new_data[i].x]);
+                y2.push([new_data[i].y]);
+                points2.push([new_data[i].x, new_data[i].y]);
+                
+                
+            }
+$.ajax({
+    url: "/test2",
+    type: "POST",
+    data: JSON.stringify({x2: x2 , y2:y2 ,points2 :points2}),
+    contentType: "application/json; charset=utf-8",
+    success: function(dat) { 
+            $("#result3").text(dat.mp2);
+            $("#result4").text(dat.gp_2 + " " + "INCHS" );
+            $("#result5").text(dat.f_2  +  " " + "DEGREES" );
+            
+            }
+});
+        
+   
+});
+</script>
+
+<script>
+
+var currentIndexSelected;
+  xArr  = {{ X3 }};
+  yArr  = {{ Y3 }};
+  var data = [];
+   for (i = 0; i < xArr.length; i++) {
+		data.push([xArr[i], yArr[i]]);
+	}
+var chart = new Highcharts.Chart({
+    chart: {
+        renderTo: 'myplot2',
+        events: {
+         load: function() {
+          this.renderer.image("{{url_for('static', filename= 'img_dump/3.png')}} ", 60, 45, 528, 520).add(); 
+           },
+            click: function(e) {
+                    var x = Math.round(e.xAxis[0].value),
+                    y = Math.round(e.yAxis[0].value),
+                    series = this.series[0];
+                    series.addPoint([x, y]);
+    
+                    }
+                    
+                    
+        }
+    },
+     title: {
+        text: 'Target 3'
+    },
+     xAxis: {
+            linewidth:5,
+            max: 2000,
+            min: 0
+
+
+        } ,
+        yAxis: [{
+            linewidth:5,
+            max: 2000,
+            min: 0,
+            title: {
+                text: ' '
+            }
+        } ],
+    legend: {
+        layout: 'vertical',
+        floating: true,
+        backgroundColor: '#FFFFFF',
+        align: 'right',
+        verticalAlign: 'bottom',
+        y: 60,
+        x: -60
+    },
+    tooltip: {
+        formatter: function() {
+            return '<b>'+ this.series.name +'</b><br/>'+
+                this.x +': '+ this.y;
+        }
+    },
+    plotOptions: {
+    },
+   series: [{
+        allowPointSelect: true,
+        //cursor: 'ns-resize',
+        point: {
+                    events: {
+                        select: function() {
+                           var pId = this.series.data.indexOf(this);
+                            currentIndexSelected = pId;
+                           
+                            
+                            $('#out').html(
+                            'Dragging <b>' +  this.series.points[pId].y);//this.series.data[0].x + '</b>, <b>');
+                            
+                        },
+                            
+                        
+                        drag: function(e) {
+                        
+                        // Returning false stops the drag and drops. Example:
+                        /*
+                        if (e.newY > 300) {
+                            this.y = 300;
+                            return false;
+                        }
+                        */
+                        
+                        $('#drag').html(
+                            'Dragging <b>' + this.series.name + '</b>, <b>' +
+                            this.category + '</b> to <b>' + 
+                            Highcharts.numberFormat(e.newY, 2) + '</b>'
+                        );
+                    },
+                    drop: function() {
+                        $('#drop').html(
+                            'In <b>' + this.series.name + '</b>, <b>' +
+                            this.category + '</b> was set to <b>' + 
+                            Highcharts.numberFormat(this.y, 2) + '</b>'
+                        );
+                    }
+                    }
+                },
+        data: data,
+        cursor: 'move',
+        marker: {
+                enabled: true,
+                radius: 5
+            },
+        lineWidth:0,
+        tooltip: {
+                valueDecimals: 2
+            },
+        states: {
+                hover: {
+                    lineWidthPlus: 0
+                }
+            },
+        color:'#FF0000',
+        draggableX: true,
+        draggableY: true,
+        
+    }]
+});
+
+
+// button handler
+$('#button3').click(function() {
+     var chart = $('#myplot2').highcharts();
+     var series = chart.getSelectedSeries();
+    
+        //categories.splice(currentIndexSelected,1);
+        data.splice(currentIndexSelected,1);
+        
+        chart.series[0].setData(data);
+       // chart.xAxis[0].setCategories(categories);
+   
+});
+
+$('#refresh3').click(function() {
+     var chart = $('#myplot2').highcharts();
+     var x3 = [];
+     var y3 = [];
+     var points3 = [];
+     var new_data = chart.series[0].points;
+     for(var i = 0; i < new_data.length; i++) {
+                x3.push([new_data[i].x]);
+                y3.push([new_data[i].y]);
+                points3.push([new_data[i].x, new_data[i].y]);
+                
+            }
+$.ajax({
+    url: "/test3",
+    type: "POST",
+    data: JSON.stringify({x3: x3 , y3:y3 , points3:points3}),
+    contentType: "application/json; charset=utf-8",
+    success: function(dat) { 
+            $("#result6").text(dat.mpi_3);
+            $("#result7").text(dat.gp_3 + " " + "INCHS" );
+            $("#result8").text(dat.f_3  +  " " + "DEGREES" );
+            
+            
+            }
+});
+        
+   
+});
+</script>
+
+<script>
+
+var currentIndexSelected;
+  xArr  = {{ X4 }};
+  yArr  = {{ Y4 }};
+  var data = [];
+   for (i = 0; i < xArr.length; i++) {
+		data.push([xArr[i], yArr[i]]);
+	}
+console.log (data);
+
+var chart = new Highcharts.Chart({
+    chart: {
+        renderTo: 'myplot3',
+        events: {
+         load: function() {
+          this.renderer.image("{{url_for('static', filename= 'img_dump/4.png')}} ", 60, 45, 528, 520).add(); 
+           },
+            click: function(e) {
+                    var x = Math.round(e.xAxis[0].value),
+                    y = Math.round(e.yAxis[0].value),
+                    series = this.series[0];
+                    series.addPoint([x, y]);
+    
+                    }
+                    
+                    
+        }
+    },
+     title: {
+        text: 'Target 4'
+    },
+     xAxis: {
+            linewidth:5,
+            max: 2000,
+            min: 0
+
+
+        } ,
+        yAxis: [{
+            linewidth:5,
+            max: 2000,
+            min: 0,
+            title: {
+                text: ' '
+            }
+        } ],
+    legend: {
+        layout: 'vertical',
+        floating: true,
+        backgroundColor: '#FFFFFF',
+        align: 'right',
+        verticalAlign: 'bottom',
+        y: 60,
+        x: -60
+    },
+    tooltip: {
+        formatter: function() {
+            return '<b>'+ this.series.name +'</b><br/>'+
+                this.x +': '+ this.y;
+        }
+    },
+    plotOptions: {
+    },
+    series: [{
+        allowPointSelect: true,
+        //cursor: 'ns-resize',
+        point: {
+                    events: {
+                        select: function() {
+                           var pId = this.series.data.indexOf(this);
+                            currentIndexSelected = pId;
+                           
+                            
+                            $('#out').html(
+                            'Dragging <b>' +  this.series.points[pId].y);//this.series.data[0].x + '</b>, <b>');
+                            
+                        },
+                            
+                        
+                        drag: function(e) {
+                        
+                        // Returning false stops the drag and drops. Example:
+                        /*
+                        if (e.newY > 300) {
+                            this.y = 300;
+                            return false;
+                        }
+                        */
+                        
+                        $('#drag').html(
+                            'Dragging <b>' + this.series.name + '</b>, <b>' +
+                            this.category + '</b> to <b>' + 
+                            Highcharts.numberFormat(e.newY, 2) + '</b>'
+                        );
+                    },
+                    drop: function() {
+                        $('#drop').html(
+                            'In <b>' + this.series.name + '</b>, <b>' +
+                            this.category + '</b> was set to <b>' + 
+                            Highcharts.numberFormat(this.y, 2) + '</b>'
+                        );
+                    }
+                    }
+                },
+        data: data,
+        cursor: 'move',
+        marker: {
+                enabled: true,
+                radius: 5
+            },
+        lineWidth:0,
+        tooltip: {
+                valueDecimals: 2
+            },
+        states: {
+                hover: {
+                    lineWidthPlus: 0
+                }
+            },
+        color:'#FF0000',
+        draggableX: true,
+        draggableY: true,
+        
+    }]
+});
+
+
+// button handler
+$('#button4').click(function() {
+     var chart = $('#myplot3').highcharts();
+     var series = chart.getSelectedSeries();
+    
+        //categories.splice(currentIndexSelected,1);
+        data.splice(currentIndexSelected,1);
+        
+        chart.series[0].setData(data);
+       // chart.xAxis[0].setCategories(categories);
+   
+});
+   
+
+$('#refresh4').click(function() {
+     var chart = $('#myplot3').highcharts();
+     var x4 = [];
+     var y4 = [];
+     var points4 = [];
+     var new_data = chart.series[0].points;
+     for(var i = 0; i < new_data.length; i++) {
+                x4.push([new_data[i].x]);
+                y4.push([new_data[i].y]);
+                points4.push([new_data[i].x, new_data[i].y]);
+                
+            }
+$.ajax({
+    url: "/test4",
+    type: "POST",
+    data: JSON.stringify({x4: x4 , y4:y4 , points4 : points4}),
+    contentType: "application/json; charset=utf-8",
+    success: function(dat) { 
+            $("#result9").text(dat.mp4);
+            $("#result10").text(dat.gp_4 + " " + "INCHS" );
+            $("#result11").text(dat.f_4  +  " " + "DEGREES" );
+            
+            
+            
+            }
+});
+        
+   
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Firer Detail{% endblock %}
+{% block content %}
+<h3 class="form-heading"> <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
+<body>
+<div class="page-header">
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Personal No</th>
+      <th> Gender </th>
+      <th>Name</th>
+      <th>Cantonment</th>
+      <th>Brigade</th>
+      <th>Unit</th>
+      <th>Rank</th>
+      <th>Detail </th>
+      <th> Edit </th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in firer %}
+    <tr>
+      <td>{{ row.service_id }}</td>
+      <td> {{ row. gender}}
+      <td>{{ row.name }}</td>
+      <td>{{ row.cantonment_name}}</td>
+      <td>{{ row.brigade }}</td>
+      <td>{{ row.unit }}</td>
+      <td>{{ row.rank }}</td>
+      <td>
+        <a href=" {{ url_for('firer_detail_view', id=row.service_id)}}">
+        <i class="fa fa-pencil"></i> Detail
+        </a>
+      </td>
+      
+      <td>
+        <a href="{{ url_for('firer_detail_edit', id=row.service_id)}} ">
+        <i class="fa fa-pencil"></i> Edit
+        </a>
+      </td>
+      
+      
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+</div>
+</body>
+
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Firer Detail View{% endblock %}
+{% block content %}
+ <h3 class="form-heading"> <a href="{{ url_for('detail_view') }}" title=" "><i class="fa fa-home pull-right"></i></a></h3>
+<body>
+<div class="page-header">
+
+<table class="table">
+
+  <tbody>
+    {% for row7 in data %}
+     <tr>
+          <td><b> Date : </b></td>
+          <td>{{ row7.date }}</td>
+      
+     </tr>
+    {% endfor %} 
+    
+  
+     {% for row8 in data %}
+     <tr>
+          <td><b> Session No: </b></td>
+          <td>{{ row8.session_id }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+   {% for row10 in data %}
+     <tr>
+          <td><b> Detail No : </b></td>
+          <td>{{ row10.detail_no }}</td>
+      
+     </tr>
+    {% endfor %}
+
+   {% for row11 in data %}
+     <tr>
+          <td><b> Set  No : </b></td>
+          <td>{{ row11.set_no }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+  {% for row12 in data %}
+     <tr>
+          <td><b> Paper Referance : </b></td>
+          <td>{{ row12.paper_ref }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    
+  {% for row in data %}
+    <tr>
+          <td><b>Target 1 Firer : </b></td>
+          <td>{{ row.target_1 }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+     {% for row1 in data %}
+     <tr>
+          <td><b>Target 2 Firer : </b></td>
+          <td>{{ row1.target_2 }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    {% for row2 in data %}
+     <tr>
+          <td><b>Target 3 Firer : </b></td>
+          <td>{{ row2.target_3  }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    
+     {% for row3 in data %}
+     <tr>
+          <td><b> Target 4 Firer : </b></td>
+          <td>{{ row3.target_4 }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    
+     {% for row4 in data %}
+     <tr>
+          <td><b> Target 5 Firer : </b></td>
+          <td>{{ row4.target_5 }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    
+    {% for row5 in data %}
+     <tr>
+          <td><b> Target 6 Firer : </b></td>
+          <td>{{ row5.target_6 }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    
+    {% for row6 in data %}
+     <tr>
+          <td><b> Target 7 Firer : </b></td>
+          <td>{{ row6.target_7 }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    
+    {% for row7 in data %}
+     <tr>
+          <td><b> Target 8 Firer : </b></td>
+          <td>{{ row7.target_8 }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    
+    
+ 
+  
+
+  </tbody>
+</table>
+
+</div>
+</body>
+
+{% endblock %}

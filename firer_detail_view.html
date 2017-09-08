@@ -1,0 +1,97 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Firer Detail View{% endblock %}
+{% block content %}
+ <h3 class="form-heading"> <a href="{{ url_for('firer_details') }}" title=" "><i class="fa fa-home pull-right"></i></a></h3>
+<body>
+<div class="page-header">
+
+<table class="table">
+
+  <tbody>
+    {% for row7 in data %}
+     <tr>
+          <td><b> Registration Date : </b></td>
+          <td>{{ row7.registration_date }}</td>
+      
+     </tr>
+    {% endfor %} 
+    
+  
+     {% for row8 in data %}
+     <tr>
+          <td><b> Date of Birth : </b></td>
+          <td>{{ row8.date_of_birth }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+  
+    
+  {% for row in data %}
+    <tr>
+          <td><b>Personal : </b></td>
+          <td>{{ row.service_id }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+     {% for row1 in data %}
+     <tr>
+          <td><b> Name : </b></td>
+          <td>{{ row1.name }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    {% for row2 in data %}
+     <tr>
+          <td><b> Cantonment : </b></td>
+          <td>{{ row2.cantonment_name }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    
+     {% for row3 in data %}
+     <tr>
+          <td><b> Brigade : </b></td>
+          <td>{{ row3.brigade }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    {% for row4 in data %}
+     <tr>
+          <td><b> Unit : </b></td>
+          <td>{{ row4.unit }}</td>
+      
+     </tr>
+    {% endfor %}
+
+    
+    {% for row5 in data %}
+     <tr>
+          <td><b> Rank : </b></td>
+          <td>{{ row5.rank }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    {% for row6 in data %}
+     <tr>
+          <td><b> Gender : </b></td>
+          <td>{{ row6.gender }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+ 
+  
+
+  </tbody>
+</table>
+
+</div>
+</body>
+
+{% endblock %}

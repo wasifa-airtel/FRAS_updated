@@ -1,0 +1,33 @@
+{% extends 'layouts/form.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Register{% endblock %}
+{% block content %}
+    <h3 class="form-heading">Firing Configuration <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
+    <form method="post">
+    </br>
+    </br>
+    <b>Firing Range : </b>
+    <select name="comp_select_4" class="selectpicker form-control">
+        {% for o in rang %}
+         <option value="{{ o.name }}">{{ o.name }}</option>
+        {% endfor %}                                              
+    </select>
+    </br>
+    <b>Firearms : </b>
+     <select name="comp_select_5" class="selectpicker form-control">
+        {% for o in firearmns %}
+         <option value="{{ o.name }}">{{ o.name }}</option>
+        {% endfor %}                                              
+     </select>
+    </br>
+    <b>Ammunation : </b>
+     <select name="comp_select_6" class="selectpicker form-control">
+        {% for o in ammunation %}
+         <option value="{{ o.name }}">{{ o.name }}</option>
+        {% endfor %}                                              
+     </select>
+    </br>
+     {{ wtf.quick_form(form) }}
+    </form>
+  
+{% endblock %}

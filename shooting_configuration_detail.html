@@ -1,0 +1,50 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Firer Detail{% endblock %}
+{% block content %}
+<h3 class="form-heading"> <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
+<body>
+<div class="page-header">
+
+<table class="table">
+  <thead>
+    <tr>
+      <th> Date</th>
+       <th> Session No </th>
+       <th> Shooting Range </th>
+       <th> Firerarms </th>
+       <th> Amunation </th>
+       <th>Detail </th>
+      <th> Edit </th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in con %}
+    <tr>
+      <td>{{ row.date}}</td>
+      <td>{{ row.session_no}}</td>
+      <td>{{ row.range_name}}</td>
+      <td>{{ row.firerarms_name }}</td>
+      <td>{{ row.ammunation_name}}</td>
+      <td>
+        <a href="{{ url_for('session_config_detail', id=row.session_no) }}">
+        <i class="fa fa-pencil"></i> Detail
+        </a>
+      </td>
+      
+      <td>
+        <a href="{{ url_for('shooting_config_edit', id=row.id) }} ">
+        <i class="fa fa-pencil"></i> Edit
+        </a>
+      </td>
+      
+      
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+</div>
+</body>
+
+{% endblock %}

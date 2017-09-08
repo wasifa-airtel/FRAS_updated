@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+{% extends 'layouts/form.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+<head>
+{% block title %}Bulk Rregistration{% endblock %}
+
+</head>
+
+
+<body>
+{% block content %}
+<h3 class="form-heading">Bulk Registration <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
+</br>
+ <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+</br>
+Registration Date :
+</br>
+{{ form.dt }}
+</br>
+</br>
+Division : 
+ <select name="comp_select" id="select_customer" class="selectpicker form-control">
+     <option value=" ">Choose...</option>
+    {% for o in cantonment %}  
+     <option value="{{ o.cantonment}}">{{ o.cantonment }}</option>
+    {% endfor %}                                              
+ </select>
+ </br>
+ Cantonment : 
+ <select name="comp_select1"  id="select_goodsrec" class="selectpicker form-control" disabled>
+    <option>Select .....</option>                                           
+ </select>
+ </br>
+  Unit : 
+ <select name="comp_select2"  id="select_goodsrec_1" class="selectpicker form-control" disabled>
+       <option>Select .....</option>                                           
+ </select>
+ </br>
+  </br>
+  <input type="file" name="data_file" />
+   </br>
+  <input type="submit" value = "Save"/>
+</form>
+</br>
+</div>
+</br>
+
+ <script>
+    $(document).ready(function() {
+        var dropdown = {
+            customer: $('#select_customer'),
+            goodsrec: $('#select_goodsrec')
+        };
+
+        // function to call XHR and update goodsrec dropdown
+        function updateGoodsrec() {
+            var customer = dropdown.customer.val();
+            dropdown.goodsrec.attr('disabled', 'disabled');
+            console.log(customer);
+
+            if (customer.length) {
+                dropdown.goodsrec.empty();
+                $.getJSON("{{ url_for('get_brigade') }}",
+                             {customer: customer}, 
+                             function(data) {
+                    console.log(data);
+                    data.forEach(function(item) {
+                        dropdown.goodsrec.append(
+                            $('<option>', {
+
+                                text: item.name
+                            })
+                        );
+                    });
+                    dropdown.goodsrec.removeAttr('disabled');
+                });
+            }
+        }
+
+        // event listener to customer dropdown change
+        dropdown.customer.on('change', function() {
+            updateGoodsrec();
+        });
+
+    });
+</script>
+
+ <script>
+    $(document).ready(function() {
+        var dropdown = {
+            customer: $('#select_goodsrec'),
+            goodsrec: $('#select_goodsrec_1')
+        };
+
+        // function to call XHR and update goodsrec dropdown
+        function updateGoodsrec() {
+            var customer = dropdown.customer.val();
+            dropdown.goodsrec.attr('disabled', 'disabled');
+            console.log(customer);
+
+            if (customer.length) {
+                dropdown.goodsrec.empty();
+                $.getJSON("{{ url_for('get_unit') }}",
+                             {customer: customer}, 
+                             function(data) {
+                    console.log("this is data ",data);
+                    data.forEach(function(item) {
+                        dropdown.goodsrec.append(
+                            $('<option>', {
+
+                                text: item.name
+                            })
+                        );
+                    });
+                    dropdown.goodsrec.removeAttr('disabled');
+                });
+            }
+        }
+
+        // event listener to customer dropdown change
+        dropdown.customer.on('change', function() {
+            updateGoodsrec();
+        });
+
+    });
+</script>
+</body>
+</html>
+{% endblock %}

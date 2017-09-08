@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+
+
+<meta name="robots" content="noindex">
+<html>
+<head>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://rawgithub.com/highcharts/draggable-points/master/draggable-points.js"></script>
+<link rel="stylesheet" type="text/css" herf="static/jquery.jqplot.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset=utf-8 />
+<style>
+ .left {
+        float: left;
+        width: 50%;
+        
+   }
+    
+ .right {
+        
+        float: right;
+        width: 50%;
+ }
+ 
+ 
+ div #container{
+    width:100%;
+    height:800px;
+    
+ }
+ 
+div#header {
+    height:10px;
+    border:0px solid;
+}
+div#left {
+    width:200px;
+    height:1000px;
+    float:left;
+    background-color:white;
+    
+}
+div#right {
+    width:calc(100% - 200px);
+    width: -webkit-calc(100% - 200px);
+    width: -moz-calc(100% - 200px);
+    height:200%;
+    float:right;
+    background-color:white;
+}
+
+#button {
+  width: 7em;
+  background-color: #87CEFA;
+  font-size: 110%;
+  /* etc., etc., and so forth */
+}
+
+#refresh {
+  width: 7em;
+  background-color: #87CEFA;
+  font-size: 110%;
+  /* etc., etc., and so forth */
+}
+    
+#score {
+  width: 7em;
+  background-color: #87CEFA;
+  font-size: 110%;
+  /* etc., etc., and so forth */
+}
+    
+#save {
+  width: 7em;
+  background-color: #87CEFA;
+  font-size: 110%;
+  /* etc., etc., and so forth */
+}
+
+table#incident_table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+    
+</head>
+<body>
+</br>
+
+
+<div id="header"></div>
+<div id="container">
+    <div id="right">
+    <h3 class="form-heading"><a href="{{ url_for('previous_page_target_1') }}"><i>&#8592; Previous Page</i></a></h3>
+    </br>
+    </br>
+    
+        <div class="left">
+            <table>
+            <tr>
+            <td><img src="{{url_for('static', filename= 'img_dump/1.png')}} " width="200" height="200"></td>
+            </tr>
+            </table>
+        </br>
+            <button id="score" type="button" class="btn btn-outline-primary">Score</button>
+        </br>
+        </br>
+            <div id="myplot" style="width:610px;height:610px;border:medium solid">  
+            <!-- Plotly chart will be drawn inside this DIV -->
+            </div>
+        </br>
+            <button id="button" type="button" class="btn btn-outline-primary">Remove </button>
+            <button id="refresh" type="button" class="btn btn-outline-primary">Update</button>
+            </br>
+            </br>
+            <form action="{{ url_for('save_call_1') }}" method=post>
+                <input type="submit" name="submit" value="Save">
+            </form>
+        </br>
+        </br>
+        
+    </div>
+      <div class="right">
+    <div id="div2">
+    <h2> Information : Target 1</h2>
+    </br>
+        <table>
+            <tr>
+                <td><b> Session No: &nbsp;&nbsp;&nbsp;&nbsp;</b></td>
+                <td>{{ session_no }}</td>
+            </tr>
+            <tr>
+                <td><b>Detail No: &nbsp;&nbsp;&nbsp;&nbsp;</b></td>
+                <td>{{ detail_no }}</td>
+            </tr>
+             <tr>
+                <td><b>Target No: &nbsp;&nbsp;&nbsp;&nbsp;</b></td>
+                <td>{{ target_no }}</td>
+            </tr>
+            <tr>
+                <td><b>Army No: &nbsp;&nbsp;&nbsp;&nbsp;</b></td>
+                <td>{{ service_id }}</td>
+            </tr>
+            <tr>
+                <td><b>Rank: &nbsp;&nbsp;&nbsp;&nbsp;</b></td>
+                <td>{{ rank }}</td>
+            </tr>
+              <tr>
+                <td><b>Firer: &nbsp;&nbsp;&nbsp;&nbsp;</b></td>
+                <td>{{ name }}</td>
+            </tr>
+        </table>
+    </div>
+    </br>
+    <b> ---------------------------------------------- </b>
+    </br>
+    <div id="div3">
+        <h2> Score </h2>
+        <div id="detail1" style="" >
+            <b>Result : &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><span id="result3">  </span>
+            </br>
+            <b>MPI (Inch): &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><span id="result">  </span>
+            </br>
+            <b> Grouping Lenght (Inch) :&nbsp;&nbsp;&nbsp;&nbsp;</b><span id="result1"> </span>
+            </br>
+            <b>Firing Tendency: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><span id="result2"> </span>
+            </br>
+        </div>
+    </div>
+    </br>
+    <b> ---------------------------------------------- </b>
+    </br>
+    </br>
+     <div id="div4">
+        <h2> Last Five Details </h2>
+        <table>
+  <tr>
+    <td><b>Result</b></td>
+    <td>Pass</td>
+    <td>Pass</td>
+    <td>Pass</td>
+    <td>Pass</td>
+    <td>W/O</td>
+  </tr>
+   <tr>
+    <td><b>Tendancy</b></td>
+    <td>BR</td>
+    <td>TR</td>
+    <td>BR</td>
+    <td>BR</td>
+    <td>TL</td>
+  </tr>
+</table>
+    </div>
+    <b> ---------------------------------------------- </b>
+      <div id="div5">
+        <h2> Detail Information </h2>
+           <table id="incident_table">
+          </table>
+    </div>
+</div>
+
+</div>
+    <div id="left"> </div>   
+</div>
+
+<script>
+$("#score").click(function(e) {
+    e.preventDefault();
+    console.log("inside the function");
+    
+       $.ajax({
+                    type: "POST",
+                    url: "/prediction_target_1/",
+                    success: function (data) {
+                    console.log(data.fx1);
+                    my_chart(data.fx1,data.fy1,data.x1,data.y1,data.set_2_x,data.set_2_y,data.set_3_x,data.set_3_y,data.set_4_x,data.set_4_y);
+                    //var mpi = [data.xmpi1,data.ympi1];
+                    
+                    txlen = data.xmpi1.length;
+                    tylen = data.ympi1.length;
+                    txtx=data.xmpi1.substring(1,txlen-1);
+                    txty=data.ympi1.substring(1,tylen-1);
+                    $("#result3").text(data.result_1);
+                    $("#result").text(txtx + ", " +  txty );
+                    $("#result1").text(data.gp );
+                    console.log(data.set_1_name);
+                    $("#result2").text(data.fir_tendency_1);
+                    xlen = data.txf1.length;
+                    ylen = data.tyf1.length;
+                    
+                    
+                    ftysub=data.tyf1.substring(1,ylen-1);
+                    fty=Number(ftysub);
+                    ftxsub=data.txf1.substring(1,xlen-1);
+                    ftx=Number(ftxsub);
+                    
+                    var tblSomething = '<thead> <tr><th> </th> <th>Set 1</th> <th>Set 2 </th> <th> Set 3 </th> <th> Set 4 </th> <th> Current Set </th>  </tr> </thead> <tbody>';
+                    tblSomething += '<tr>';
+                    tblSomething += '<td><b>' + "Firer"  + '</b></td>';
+                    tblSomething += '<td>' + data.set_1_name + '</td>';
+                    tblSomething += '<td>' + data.set_2_name + '</td>';
+                    tblSomething += '<td>' + data.set_3_name + '</td>';
+                    tblSomething += '<td>' + data.set_4_name + '</td>';
+                    tblSomething += '<td>' +  data.current_firer_name + '</td>';
+                    tblSomething += '</tr>';
+                    tblSomething += '<tr>';
+                    tblSomething += '<td><b>' + "Army No"  + '</b></td>';
+                    tblSomething += '<td>' + data.set_1_army + '</td>';
+                    tblSomething += '<td>' + data.set_2_army + '</td>';
+                    tblSomething += '<td>' + data.set_3_army+ '</td>';
+                    tblSomething += '<td>' + data.set_4_army + '</td>';
+                    tblSomething += '<td>' +  data.current_army_no + '</td>';
+                    tblSomething += '</tr>';
+                    
+                    tblSomething += '<tr>';
+                    tblSomething += '<td><b>' + "Session No"  + '</b></td>';
+                    tblSomething += '<td>' + data.set_1_session_no + '</td>';
+                    tblSomething += '<td>' + data.set_2_session_no + '</td>';
+                    tblSomething += '<td>' + data.set_3_session_no+ '</td>';
+                    tblSomething += '<td>' + data.set_4_session_no + '</td>';
+                    tblSomething += '<td>' +  data.current_session_no + '</td>';
+                    tblSomething += '</tr>';
+                    
+                     tblSomething += '<tr>';
+                    tblSomething += '<td><b>' + "Detail No"  + '</b></td>';
+                    tblSomething += '<td>' + data.set_1_detail_no + '</td>';
+                    tblSomething += '<td>' + data.set_2_detail_no + '</td>';
+                    tblSomething += '<td>' + data.set_3_detail_no+ '</td>';
+                    tblSomething += '<td>' + data.set_4_detail_no+ '</td>';
+                    tblSomething += '<td>' +  data.current_detail_no + '</td>';
+                    tblSomething += '</tr>';
+                    
+                    tblSomething += '</tbody>';
+                    $('#incident_table').html(tblSomething);
+                    
+                   
+                    
+                }
+                });
+});
+
+
+function my_chart(fx1,fy1,x,y,fx2,fy2,fx3,fy3 ,fx4,fy4) {
+ console.log("inside the chart");
+ console.log(fx2);
+ 
+ var fx1_arr = [];
+ var fy1_arr = [];
+ 
+ var fx2_arr = [];
+ var fy2_arr = [];
+ 
+ var fx3_arr = [];
+ var fy3_arr = [];
+ 
+ var fx4_arr = [];
+ var fy4_arr = [];
+ 
+ for (var key in fx1) {
+   if (fx1.hasOwnProperty(key)) {
+     var val = fx1[key];
+     for (var key2 in val){
+        if (val.hasOwnProperty(key2)){
+            var val2 = val[key2];
+            fx1_arr.push(val2);
+        }
+    }
+   }
+ }
+        
+for (var key in fy1) {
+   if (fy1.hasOwnProperty(key)) {
+     var val = fy1[key];
+     for (var key2 in val){
+        if (val.hasOwnProperty(key2)){
+            var val2 = val[key2];
+            fy1_arr.push(val2);
+        }
+    }
+   }
+ }
+
+for (var key in fx2) {
+   if (fx2.hasOwnProperty(key)) {
+     var val = fx2[key];
+     for (var key2 in val){
+        if (val.hasOwnProperty(key2)){
+            var val2 = val[key2];
+            fx2_arr.push(val2);
+        }
+    }
+   }
+ }
+        
+for (var key in fy2) {
+   if (fy2.hasOwnProperty(key)) {
+     var val = fy2[key];
+     for (var key2 in val){
+        if (val.hasOwnProperty(key2)){
+            var val2 = val[key2];
+            fy2_arr.push(val2);
+        }
+    }
+   }
+ }
+        
+ for (var key in fx3) {
+   if (fx3.hasOwnProperty(key)) {
+     var val = fx3[key];
+     for (var key2 in val){
+        if (val.hasOwnProperty(key2)){
+            var val2 = val[key2];
+            fx3_arr.push(val2);
+        }
+    }
+   }
+ }
+        
+  for (var key in fy3) {
+   if (fy3.hasOwnProperty(key)) {
+     var val = fy3[key];
+     for (var key2 in val){
+        if (val.hasOwnProperty(key2)){
+            var val2 = val[key2];
+            fy3_arr.push(val2);
+        }
+    }
+   }
+ }
+        
+  for (var key in fx4) {
+   if (fx4.hasOwnProperty(key)) {
+     var val = fx4[key];
+     for (var key2 in val){
+        if (val.hasOwnProperty(key2)){
+            var val2 = val[key2];
+            fx4_arr.push(val2);
+        }
+    }
+   }
+ }
+        
+  for (var key in fy4) {
+   if (fy4.hasOwnProperty(key)) {
+     var val = fy4[key];
+     for (var key2 in val){
+        if (val.hasOwnProperty(key2)){
+            var val2 = val[key2];
+            fy4_arr.push(val2);
+        }
+    }
+   }
+ }      
+        
+
+ var currentIndexSelected;
+ 
+
+ xlen = x.length;
+ ylen = y.length;
+ 
+ xsub=x.substring(1,xlen-1); 
+ ysub=y.substring(1,ylen-1); 
+ 
+
+  xArr = xsub.split(",");
+  yArr = ysub.split(",");
+  
+  console.log(fx1);
+  
+  var data = [];
+  var data_1=[];
+  var data_2=[];
+  var data_3=[];
+  var data_4=[];
+  
+   for (i = 0; i < xArr.length; i++) {
+		data.push([Number(xArr[i]), Number(yArr[i])]);
+	}
+   
+ for (i = 0; i < fx1_arr.length; i++) {
+		data_1.push([Number(fx1_arr[i]), Number(fy1_arr[i])]);
+	}
+ 
+  for (i = 0; i < fx2_arr.length; i++) {
+		data_2.push([Number(fx2_arr[i]), Number(fy2_arr[i])]);
+	}
+  
+  for (i = 0; i < fx3_arr.length; i++) {
+		data_3.push([Number(fx3_arr[i]), Number(fy3_arr[i])]);
+	}
+  
+   for (i = 0; i < fx4_arr.length; i++) {
+		data_4.push([Number(fx4_arr[i]), Number(fy4_arr[i])]);
+	}
+
+
+  console.log("this is data4"); 
+  console.log(data_4);
+
+
+var chart = new Highcharts.Chart({
+    chart: {
+        renderTo: 'myplot',
+         events: {
+         load: function() {
+          this.renderer.image("{{url_for('static', filename= 'img_dump/1.png')}} ", 53, 47, 540, 522).add(); 
+           },
+            click: function(e) {
+                    var x = Math.round(e.xAxis[0].value),
+                    y = Math.round(e.yAxis[0].value),
+                    series = this.series[0];
+                    series.addPoint([x, y]);
+    
+                    }
+                    
+                    
+        }
+    },
+     title: {
+        text: 'Target 1'
+    },
+     xAxis: {
+            linewidth:1,
+            max: 2000,
+            min: 0,
+
+        } ,
+        yAxis: [{
+            linewidth:1,
+            max: 2000,
+            min: 0,
+            title: {
+                text: ''
+            }
+        } ],
+    legend: {
+            align: 'left',
+            layout: 'horizontal',
+            verticalAlign: 'top',
+            floating: true,
+            backgroundColor: '#FFFFFF',
+            x: 40,
+            y: 0
+    },
+    tooltip: {
+        formatter: function() {
+            return '<b>'+ this.series.name +'</b><br/>'+
+                this.x +': '+ this.y;
+        }
+    },
+    plotOptions: {
+            series :{
+                     
+                     point: {
+                     events: {
+                        select: function() {
+                           var pId = this.series.data.indexOf(this);
+                            currentIndexSelected = pId;
+                           
+                            
+                            $('#out').html(
+                            'Dragging <b>' +  this.series.points[pId].y);//this.series.data[0].x + '</b>, <b>');
+                            
+                        },
+                            
+                        
+                        drag: function(e) {
+                        
+                        // Returning false stops the drag and drops. Example:
+                        /*
+                        if (e.newY > 300) {
+                            this.y = 300;
+                            return false;
+                        }
+                        */
+                        
+                        $('#drag').html(
+                            'Dragging <b>' + this.series.name + '</b>, <b>' +
+                            this.category + '</b> to <b>' + 
+                            Highcharts.numberFormat(e.newY, 2) + '</b>'
+                        );
+                    },
+                    drop: function() {
+                        $('#drop').html(
+                            'In <b>' + this.series.name + '</b>, <b>' +
+                            this.category + '</b> was set to <b>' + 
+                            Highcharts.numberFormat(this.y, 2) + '</b>'
+                        );
+                    }
+                    }
+         
+            },
+                  states: {
+                hover: {
+                    lineWidthPlus: 0
+                }
+            }
+                    
+                }
+       },
+                
+     tooltip: {
+                valueDecimals: 2
+            },
+             
+     series: [{
+       
+        name :'Current Set',
+        cursor: 'move',
+        allowPointSelect: true,
+        data:data,
+        marker: {
+                fillColor: 'Red'
+            },
+     
+            
+        lineWidth:0,
+        draggableX: true,
+        draggableY: true,
+        
+    },
+                
+    {
+       
+        name : 'Set 1',    
+        data : data_1,
+        marker: {
+                symbol : 'triangle',
+                fillColor: 'Blue',
+                radius: 7
+                
+            },
+            
+         draggableX: true,
+         draggableY: true,
+            
+        lineWidth:0
+        
+    } ,
+                    
+    {
+       
+        name : 'Set 2',    
+        data : data_2,
+        marker: {
+                symbol : 'cross',
+                fillColor: 'Black',
+                radius: 7
+                
+            },
+         draggableX: true,
+         draggableY: true,
+     
+            
+        lineWidth:0
+        
+    },
+      {
+       
+        name : 'Set 3',    
+        data : data_3,
+        marker: {
+                symbol : 'diamond',
+                fillColor: 'Yellow',
+                radius: 7
+                
+            },
+         draggableX: true,
+         draggableY: true,
+     
+            
+        lineWidth:0
+        
+    },
+    
+        {
+       
+        name : 'Set 4',    
+        data : data_4,
+        marker: {
+                symbol : 'square',
+                fillColor: 'Orange',
+                radius: 7
+                
+            },
+         draggableX: true,
+         draggableY: true,
+     
+            
+        lineWidth:0
+        
+    }
+    ]
+     
+
+});
+
+// button handler
+$('#button').click(function() {
+     var chart = $('#myplot').highcharts();
+     var series = chart.getSelectedSeries();
+    
+        //categories.splice(currentIndexSelected,1);
+        data.splice(currentIndexSelected,1);
+        
+        chart.series[0].setData(data);
+        //chart.xAxis[0].setCategories(categories);
+   
+});
+   
+}
+   
+   
+$('#refresh').click(function() {
+     var chart = $('#myplot').highcharts();
+     var x1 = [];
+     var y1 = [];
+     var points = [];
+     var new_data = chart.series[0].points;
+    for(var i = 0; i < new_data.length; i++) {
+                x1.push([new_data[i].x]);
+                y1.push([new_data[i].y]);
+                points.push([new_data[i].x,new_data[i].y])
+                
+            }
+$.ajax({
+    url: "/test",
+    type: "POST",
+    data: JSON.stringify({x1: x1 , y1:y1 ,points:points}),
+    contentType: "application/json; charset=utf-8",
+    success: function(dat) { 
+            $("#result3").text(dat.result);
+            $("#result").text(dat.mp);
+            $("#result1").text(dat.gp_1);
+            
+            xlen = dat.ten_yu.length;
+            ylen = dat.ten_xu.length;
+            
+            uftysub=dat.ten_yu.substring(1,ylen-1);
+            ufty=Number(uftysub);
+            uftxsub=dat.ten_xu.substring(1,xlen-1);
+            uftx=Number(uftxsub);
+            
+            $("#result2").text(dat.u_fir_tendency);
+       
+            
+
+}
+        
+   
+});
+});
+   
+
+</script>
+</body>
+</html>
+</br>
+
+
+
+
+
+

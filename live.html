@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+{% extends 'layouts/main.html' %}
+
+<head>
+{% block title %}FRAS{% endblock %}
+
+</head>
+{% block content %}
+<h3 class="form-heading"> <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
+<div class="page-header">
+
+
+<div id="log" style=" ">
+
+<table>
+
+ <tr>
+    <th>Target 1 : {{ lane_1_name }} </th>
+    <th>Target 2 : {{ lane_2_name }} </th>
+    <th>Target 3 : {{ lane_3_name }}</th>
+    <th>Target 4 : {{ lane_4_name }}</th>
+</tr>
+
+
+  
+  <tr>
+    <td><img src="{{url_for('static', filename= 'img_dump/1.png')}} " width="200" height="200"></td>
+    <td><img src="{{url_for('static', filename= 'img_dump/2.png')}} " width="200" height="200"></td>
+    <td><img src="{{url_for('static', filename= 'img_dump/3.png')}} " width="200" height="200"></td>
+    <td><img src="{{url_for('static', filename= 'img_dump/4.png')}} " width="200" height="200"></td>
+  </tr>
+  
+ </table>
+ </br>
+ </br>
+ </br>
+ <button id="show">Focus</button>
+ </br>
+ </br>
+<button id="show">Capture</button>
+</br>
+
+</div>
+
+
+</body>
+</html>
+
+{% endblock %}

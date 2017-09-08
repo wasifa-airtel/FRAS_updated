@@ -1,0 +1,72 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Firer Detail View{% endblock %}
+
+<head>
+
+</head>
+{% block content %}
+<body>
+
+</br>
+<h3 class="form-heading"> <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
+<Label> Please Select The Target Group  :</Label>
+&nbsp;&nbsp;&nbsp;
+</br>
+</br>
+
+ <div class="wrapper" id="business">
+          <div class="box a">
+          <b>Target 2 </b>
+          </br>
+          Firer: {{T2_name}} 
+          </br> 
+          Rank : {{ T2_rank }}
+          </br> 
+          Army No: {{ T2_service}}
+          </br>
+          <td><img src="{{url_for('static', filename= 'img_dump/2.png')}} " width="200" height="200">
+          </div>
+          <div class="box b">
+          <b> Target 4 </b>
+          </br> 
+          Firer : {{ T4_name }} 
+          </br>
+          Rank : {{ T4_rank }}
+          </br>
+          Army No: {{ T4_service}}
+          </br>
+          <td><img src="{{url_for('static', filename= 'img_dump/4.png')}} " width="200" height="200">
+          </div>
+          <div class="box d">
+          <b>Target 1 </b>
+          </br>
+          Firer : {{T1_name}} 
+          </br>
+          Rank: {{ T1_rank }}
+          </br>
+          Army No: {{ T1_service}}
+          </br>
+          <td>
+          <a href="{{ url_for('individual_score_target_1') }}">
+          <img src="{{url_for('static', filename= 'img_dump/1.png')}} " width="200" height="200">
+          </a>
+          </td>
+          </div>
+          <div class="box e">
+          <b>Target 3 </b>
+          </br>
+          Firer :{{ T3_name }} 
+          </br>
+          Rank: {{ T3_rank }}
+          </br>   
+          Army No: {{ T3_service}}
+          </br>
+          <td><img src="{{url_for('static', filename= 'img_dump/3.png')}} " width="200" height="200">
+          </div>
+    </div>
+    
+   
+</body>
+</html>
+{% endblock %}
+

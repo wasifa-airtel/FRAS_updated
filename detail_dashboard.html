@@ -1,0 +1,155 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Firer Detail View{% endblock %}
+
+<head>
+
+</head>
+{% block content %}
+<body>
+
+</br>
+<h3 class="form-heading"> <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
+<Label> Please Select The Target Group  :</Label>
+&nbsp;&nbsp;&nbsp;
+<select id='purpose'>
+    <option value=" ">Choose..</option>
+    <option value="0">Target 1 - Target 4</option>
+    <option value="1">Target 5 - Target 8</option>
+    <option value="2">Target 1 - Target 8</option>
+</select>
+</br>
+</br>
+
+ <div class="wrapper" style='display:none;' id="business">
+          <div class="box a">
+          <b>Target 2 </b>
+          </br>
+          Firer: {{T2_name}} 
+          </br> 
+          Rank : {{ T2_rank }}
+          </br> 
+          Army No: {{ T2_service}}
+          </br>
+          <td><img src="{{url_for('static', filename= 'img_dump/2.png')}} " width="200" height="200">
+          </div>
+          <div class="box b">
+          <b> Target 4 </b>
+          </br> 
+          Firer : {{ T4_name }} 
+          </br>
+          Rank : {{ T4_rank }}
+          </br>
+          Army No: {{ T4_service}}
+          </br>
+          <td><img src="{{url_for('static', filename= 'img_dump/4.png')}} " width="200" height="200">
+          </div>
+          <div class="box d">
+          <b>Target 1 </b>
+          </br>
+          Firer : {{T1_name}} 
+          </br>
+          Rank: {{ T1_rank }}
+          </br>
+          Army No: {{ T1_service}}
+          </br>
+          <td>
+          <a href="{{ url_for('individual_score_target_1') }}">
+          <img src="{{url_for('static', filename= 'img_dump/1.png')}} " width="200" height="200">
+          </a>
+          </td>
+          </div>
+          <div class="box e">
+          <b>Target 3 </b>
+          </br>
+          Firer :{{ T3_name }} 
+          </br>
+          Rank: {{ T3_rank }}
+          </br>   
+          Army No: {{ T3_service}}
+          </br>
+          <td><img src="{{url_for('static', filename= 'img_dump/3.png')}} " width="200" height="200">
+          </div>
+    </div>
+    
+    <div class="wrapper1"  style="display:none;" id="business1">
+          <div class="box a">
+          <b> Target 6 </b>
+          </br>
+          Firer : {{ T6_name }}
+          </br>
+          Rank : {{ T6_rank }}
+          </br>
+          Army No: {{ T6_service}}
+          </br>
+          <td><img src="{{url_for('static', filename= 'img_dump/6.png')}} " width="200" height="200">
+          </div>
+          <div class="box b">
+          <b> Target 8 </b>
+          </br>
+          Firer : {{ T8_name }} 
+          </br>
+          Rank :  {{ T8_rank }}
+          </br>
+          Army No: {{ T8_service}}
+          </br>
+          <td><img src="{{url_for('static', filename= 'img_dump/8.png')}} " width="200" height="200">
+          </div>
+          <div class="box d">
+          <b> Target 5 </b>
+          </br>
+          Firer :{{ T5_name }} 
+          </br>
+          Rank :  {{ T5_rank }}
+          </br>
+          Army No: {{ T5_service}}
+          </br>
+          <td><img src="{{url_for('static', filename= 'img_dump/5.png')}} " width="200" height="200">
+          </td>
+          </div>
+          <div class="box e">
+          <b>Target 7 </b>
+          </br>
+          Firer :{{ T7_name }}
+          </br>
+          Rank : {{ T7_rank }}
+          </br>
+          Army No: {{ T7_service}}
+          </br>
+          <td><img src="{{url_for('static', filename= 'img_dump/7.png')}} " width="200" height="200">
+          </div>
+    </div>
+
+
+<script>
+$(document).ready(function(){
+    $('#purpose').on('change', function() {
+      if ( this.value == '0' || this.value == '2' )
+      {
+        $("#business").show();
+      }
+      else
+      {
+        $("#business").hide();
+      }
+    });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+    $('#purpose').on('change', function() {
+      if ( this.value == '1' || this.value == '2' )
+      {
+        $("#business1").show();
+      }
+      else
+      {
+        $("#business1").hide();
+      }
+    });
+});
+</script>
+</body>
+</html>
+{% endblock %}
+

@@ -1,0 +1,13 @@
+{% extends 'layouts/form.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+  <form method="POST" action="{{ url_for('index') }}">
+   </br>
+    <h3 class="form-heading">Welcome to FRAS</h3>
+    {{ form.name(class_ = 'form-control first-input', placeholder = form.name.label.text, required = true,autofocus = true) }}
+    </br>
+    {{ form.password(class_ = 'form-control', placeholder = form.password.label.text, required = true) }}
+    </br>
+    <input type="submit" value="Login" class="btn btn-primary btn-lg btn-block"><a href="{{ url_for('index') }}"></a>
+  </form>
+{% endblock %}

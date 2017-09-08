@@ -1,0 +1,87 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Shooting Session Detail View{% endblock %}
+{% block content %}
+ <h3 class="form-heading"> <a href="{{ url_for('session_config') }}" title=" "><i class="fa fa-home pull-right"></i></a></h3>
+<body>
+<div class="page-header">
+
+<table class="table">
+
+  <tbody>
+  
+
+  {% for row in con %}
+    <tr>
+          <td><b>Date : </b></td>
+          <td>{{ row.date }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+     {% for row1 in con %}
+     <tr>
+          <td><b> Session ID : </b></td>
+          <td>{{ row1.session_no }}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    
+    {% for row7 in con %}
+     <tr>
+          <td><b> Target Distance : </b></td>
+          <td>{{ row7.target_distance }}</td>
+      
+     </tr>
+    {% endfor %}
+
+    
+    {% for row10 in con %}
+     <tr>
+          <td><b> Firing Range : </b></td>
+          <td>{{ row10.range_name}}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    
+    
+     {% for row8 in con %}
+     <tr>
+          <td><b> Ammunation : </b></td>
+          <td>{{ row8.ammunation_name}}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    {% for row9 in con %}
+     <tr>
+          <td><b> Firearms : </b></td>
+          <td>{{ row9.firerarms_name}}</td>
+      
+     </tr>
+    {% endfor %}
+    
+    {% for row10 in con %}
+     <tr>
+          <td><b> Weather Note : </b></td>
+          <td>{{ row10.weather_notes}}</td>
+      
+     </tr>
+    {% endfor %}
+    
+     {% for row11 in con %}
+     <tr>
+          <td><b> Comments : </b></td>
+          <td>{{ row11.comments}}</td>
+      
+     </tr>
+    {% endfor %}
+    
+  </tbody>
+</table>
+
+</div>
+</body>
+
+{% endblock %}

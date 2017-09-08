@@ -1,0 +1,62 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Firer Detail{% endblock %}
+{% block content %}
+<h3 class="form-heading"> <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
+<body>
+<div class="page-header">
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Session No</th>
+      <th>Detail No</th>
+      <th>Target 1</th>
+      <th>Target 2</th>
+      <th>Target 3</th>
+      <th>Target 4</th>
+      <th>Target 5</th>
+      <th>Target 6</th>
+      <th>Target 7</th>
+      <th>Target 8</th>
+      <th>Detail </th>
+      <th>Edit </th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in detail %}
+    <tr>
+      <td>{{ row.date }}</td>
+      <td> {{ row.session_id}}
+      <td>{{ row.detail_no }}</td>
+      <td>{{ row.target_1 }}</td>
+      <td>{{ row.target_2 }}</td>
+      <td>{{ row.target_3 }}</td>
+      <td>{{ row.target_4 }}</td>
+      <td>{{ row.target_5 }}</td>
+      <td>{{ row.target_6 }}</td>
+      <td>{{ row.target_7 }}</td>
+      <td>{{ row.target_8 }}</td>
+      <td>
+        <a href=" {{ url_for('view_detail', id=row.id)}} ">
+        <i class="fa fa-pencil"></i> Detail
+        </a>
+      </td>
+      
+      <td>
+        <a href=" {{ url_for('view_detail_edit', id=row.id)}} ">
+        <i class="fa fa-pencil"></i> Edit
+        </a>
+      </td>
+      
+      
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+</div>
+</body>
+
+{% endblock %}
